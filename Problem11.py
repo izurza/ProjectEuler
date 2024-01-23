@@ -22,85 +22,24 @@ G=[
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ]
 adj = 4
+directions = [(0,1),(1,0),(1,1),(-1,1)]
 
-    # up = [-x,0]
-    # down = [x,0]
-    # right = [0,x]
-    # left = [0,-x]
-    # diagR = [x,x]
-    # diagL = [-x,-x]
-def check_left(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R][C-x])
-    return math.prod(L)
-def check_right(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R][C+x])
-    return math.prod(L)
-def check_up(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R-x][C])
-    return math.prod(L)
-def check_down(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R+x][C])
-    return math.prod(L)
-def check_diagRU(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R-x][C+x])
-    return math.prod(L)
-def check_diagRD(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R+x][C+x])
-    return math.prod(L)
-def check_diagLU(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R-x][C-x])
-    return math.prod(L)
-def check_diagLD(R,C):
-    L=[]
-    for x in range(adj):
-        L.append(G[R+x][C-x])
-    return math.prod(L)
-
-
+def check_direction(R,C,dR,dC):
+    try:
+        return math.prod(G[R+x*dR][C+x*dC] for x in range(adj))
+    except IndexError:
+        return -1
 
 def largest_grid_product():
-    max=0
-    for R in range(len(G)):
-        for C in range(len(G[0])):
-            if C>=adj-1:
-                prod = check_left(R,C)
-                if max<prod: max=prod
-                if R>=adj-1:
-                    prod = check_diagLU(R,C)
-                    if max<prod: max=prod
-                if R<=len(G[0])-adj:
-                    prod = check_diagLD(R,C)
-                    if max<prod: max=prod
-            if C<=len(G)-adj:
-                prod = check_right(R,C)
-                if max<prod: max=prod
-                if R>=adj-1:
-                    prod = check_diagRU(R,C)
-                    if max<prod: max=prod
-                if R<=len(G[0])-adj:
-                    prod = check_diagRD(R,C)
-                    if max<prod: max=prod
-            if R>=adj-1:
-                prod = check_up(R,C)
-                if max<prod: max=prod
-            if R<=len(G[0])-adj:
-                prod = check_down(R,C)
-                if max<prod: max=prod
-    return max
+    max_prod=0
+    rows, cols = len(G), len(G[0])
+    
+    for R in range(rows):
+        for C in range(cols):
+            for dR, dC in directions:
+                prod = check_direction(R,C,dR,dC)
+                max_prod = max(max_prod,prod)
+    return max_prod
 
 
 print(largest_grid_product())
