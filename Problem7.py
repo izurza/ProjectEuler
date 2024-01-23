@@ -1,16 +1,18 @@
-def nthPrime(n):
-    primes = [2]
-    number = 3
-    while(len(primes)<n):
-        is_prime = True
-        for div in range(2, int(number ** 0.5) + 1):
-            if number % div == 0:
-                is_prime = False
-                break
-        if is_prime:
-            primes.append(number)
-        number += 2
-    print(primes)
-    return primes[-1]
+import math
 
-print(nthPrime(10001))
+def find_next_prime(n):
+    while True:
+        prime = True
+        n += 2
+        for div in range(2, int(math.sqrt(n))+1):
+            if n % div == 0:
+                prime = False
+                break
+        if prime:
+            return n
+
+def nthPrime(n):
+    primes = [2,3]
+    while(len(primes)<n):
+        primes.append(find_next_prime(primes[-1]))
+    return primes[-1]
