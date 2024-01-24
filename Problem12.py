@@ -13,14 +13,6 @@ def triangle_number(n):
 def factors(n):
     i=0
     for x in range(1,int(math.sqrt(n))+1):
-        print(x)
         if n%x==0:
-            print(x*x!=n)
-            if x*x!=n: i+=2
-            else: i+=1
-            print(i)
-            # i+=2 if x*x != n else 1
+           i+=2 if x*x != n else 1
     return i
-
-# print(divisible_triangle_number(167))
-print(factors(6))
