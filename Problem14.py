@@ -1,4 +1,4 @@
-
+## Problem 14 
 def longest_collatz_sequence(n):
     max_chain_number = 0
     max_chain = 0
@@ -19,5 +19,3 @@ def odd_op(n):
 
 def is_even(n):
     return n%2==0
-
-print(longest_collatz_sequence(5847))

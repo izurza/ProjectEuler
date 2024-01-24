@@ -1,3 +1,4 @@
+## Problem 12
 import math
 def divisible_triangle_number(n):
     i=1

@@ -1,3 +1,4 @@
+## Problem 10
 from Problem7 import find_next_prime
 
 def primeSummation(n):
@@ -7,6 +8,3 @@ def primeSummation(n):
         if next>n: break
         primes.append(next)
     return sum(primes)
-
-    
-print(primeSummation(2000000))
