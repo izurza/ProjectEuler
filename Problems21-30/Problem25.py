@@ -9,5 +9,3 @@ def digit_fibonacci(n):
         previous, current = current, previous + current
         index += 1
     return index
-
-print(digit_fibonacci(10))
